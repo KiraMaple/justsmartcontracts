@@ -12,7 +12,8 @@
     "ganache": "call .\\src\\stubs\\smarts\\rung.cmd",
     "migrate": "cd src\\stubs\\smarts\\ && truffle migrate --reset",
     "devnode": "concurrently \"npm run ganache\" \"npm run migrate\"",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "build:cf": "webpack --config webpack.prod.js && mkdir -p build && cp -r public build && cp index.html build"
   },
   "dependencies": {
     "@ant-design/compatible": "^1.0.8",
