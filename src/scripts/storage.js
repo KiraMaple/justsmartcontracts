@@ -1,7 +1,7 @@
-const nodesField = 'customNodes';
-const contractsField = 'contracts';
-const activeNodeField = 'activeNode';
-const activeContractField = 'activeContract';
+export const nodesField = 'customNodes';
+export const contractsField = 'contracts';
+export const activeNodeField = 'activeNode';
+export const activeContractField = 'activeContract';
 
 //load custom nodes list from storage
 export const getCustomNodes = function() {

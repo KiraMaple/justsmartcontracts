@@ -12,8 +12,12 @@ const getAdditionalText = (errorCode, data) => {
         case errorCodes.notifyTransactionSent:
             return (<p>{getExplorerLink(data.networkId, data.txHash)}</p>);
 
+        case errorCodes.errorEstimateGas:
         case errorCodes.errorArguments:
             return (<p>{data.toString()}</p>);
+
+        case errorCodes.recoverConfig:
+            return (<p>File is not a valid json file.</p>);
 
         default: 
             return null;
@@ -66,7 +70,7 @@ export const showNotification = (code, data) => {
 export const showTransactionSent = (networkId, txHash) =>
     showNotification(errorCodes.notifyTransactionSent, {networkId, txHash});
 
-export const showEstimateGasError = () => showError(errorCodes.errorEstimateGas);
+export const showEstimateGasError = (error) => showError(errorCodes.errorEstimateGas, error);
 
 export const showArgumentsError = (error) => showError(errorCodes.errorArguments, error);
 

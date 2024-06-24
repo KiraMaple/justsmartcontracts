@@ -182,10 +182,15 @@ export const getDefaultValue = type => {
         case 'bool':
             return false;
         case 'address':
-            return '0x0';
+            // return '0x0';
+            return '';
         case 'eth':
         case 'ether':
-            return '0';
+            // return '0';
+            return '';
+        case 'bytes32':
+            // return '0x0';
+            return '';
         default:
             if (isArrayType(type)) {
                 return [];

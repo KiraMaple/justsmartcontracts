@@ -17,8 +17,8 @@ class NodeFrom extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(values) {        
-        this.props.onSubmit(this.state.nodeName, this.state.endpoint, this.state.id);
+    handleSubmit(values) {
+        this.props.onSubmit(this.state.nodeName, this.state.endpoint, this.state.id, this.state.explorer);
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -29,6 +29,7 @@ class NodeFrom extends React.Component {
             data.nodeName = node ? node.name : '';
             data.endpoint = node ? node.endpoint : '';
             data.id = node ? node.id : '';
+            data.explorer = node ? node.explorer : '';
         } 
         return data;
     }
@@ -56,6 +57,14 @@ class NodeFrom extends React.Component {
                         placeholder="https://localhost:8545"
                         value={this.state.endpoint}
                         onChange={ (e) => this.handleChange(e, 'endpoint')}
+                        required
+                    />
+                </FormItem>
+                <FormItem label="Explorer">
+                    <Input 
+                        placeholder="https://etherscan.io/"
+                        value={this.state.explorer}
+                        onChange={ (e) => this.handleChange(e, 'explorer')}
                         required
                     />
                 </FormItem>

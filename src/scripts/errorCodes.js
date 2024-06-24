@@ -15,6 +15,8 @@ let errorCodes = {
     contractAlreadyExist        : 41,   //Attempt to add custom contract which already exist
     
     notifyTransactionSent       : 101,
+
+    recoverConfig               : 102,
 }
 
 export default errorCodes

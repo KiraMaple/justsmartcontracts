@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Select, Input } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import styles from './NetworkIdSelect.scss';
+import * as storage from '../../scripts/storage';
 
 const { Option } = Select;
 /**
@@ -15,13 +16,14 @@ class NetworkIdSelect extends React.Component {
     constructor(props) {
         super(props);
 
+        let customNodes = storage.getCustomNodes();
         this.idPresets = [
             { id: '1', label: 'Mainnet' },
             { id: '3', label: 'Ropsten' },
             { id: '4', label: 'Rinkeby' },
             { id: '5', label: 'Goerli' },
             { id: '42', label: 'Kovan' },
-        ];
+        ].concat(customNodes.nodes.map(v => ({ id: v.id, label: v.name })));
 
         this.state = {
             inputEnabled: this.isCustomId(this.props.value),

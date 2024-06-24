@@ -107,7 +107,7 @@ class TransactionParams extends React.Component {
                 this.setState({ gas });
             })
             .catch((error) => {
-                showEstimateGasError();
+                showEstimateGasError(error.message);
                 this.setState({ gas: 0 });
             });
     }
@@ -125,8 +125,9 @@ class TransactionParams extends React.Component {
                 gas: utils.toHex(this.state.gas),
                 value: utils.toHex(this.props.ethValue || 0),
                 chainId: this.props.tx._parent.chainId,
-                maxFeePerGas: utils.toHex(this.state.maxFeePerGas),
-                maxPriorityFeePerGas: utils.toHex(this.state.maxPriorityFeePerGas),
+                gasPrice: this.state.maxFeePerGas,
+                // maxFeePerGas: utils.toHex(this.state.maxFeePerGas),
+                // maxPriorityFeePerGas: utils.toHex(this.state.maxPriorityFeePerGas),
             },
             ...toAddress,
         };

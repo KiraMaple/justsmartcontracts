@@ -62,7 +62,7 @@ class FunctionInputs extends React.Component {
                         name={input.name}
                         initialValue={getDefaultValue(input.type)}
                     >
-                        <CustomInput type={input.type}></CustomInput>
+                        <CustomInput name={input.name} type={input.type}></CustomInput>
                     </Form.Item>
                 ))}
                 {this.props.ethInput ? (

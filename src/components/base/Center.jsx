@@ -67,13 +67,14 @@ class Center extends React.Component {
         }
     }
 
-    editCustomNode(nodeKey, nodeName, endpoint, networkId) {
+    editCustomNode(nodeKey, nodeName, endpoint, networkId, explorer) {
         let newNodeList = nodeLogic.editCustomNode(
             this.state.nodeList,
             nodeKey,
             nodeName,
             endpoint,
-            networkId
+            networkId,
+            explorer
         );
         this.setState({
             nodeList: newNodeList,
@@ -86,7 +87,8 @@ class Center extends React.Component {
             this.state.nodeList,
             nodeName,
             endpoint,
-            networkId
+            networkId,
+            explorer
         );
         this.setState({
             nodeList: newNodeList,

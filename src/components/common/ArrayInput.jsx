@@ -2,7 +2,7 @@ import React from 'react';
 import CustomInput from './CustomInput.jsx';
 import {List} from 'immutable';
 import {getDefaultValue} from '../../scripts/utils.js';
-import { Button } from 'antd';
+import { Button, Row, Col } from 'antd';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 
 /**
@@ -14,7 +14,7 @@ import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
  */
 const ArrayInput = (props) => {
     //extract rest inputProps
-    const { type, value, onChange, ...inputProps } = props;
+    const { type, name, value, onChange, ...inputProps } = props;
     const currentValue = List(value);
 
     const handleItemChange = (item, index) => {
@@ -51,13 +51,20 @@ const ArrayInput = (props) => {
                     <MinusOutlined />
                 </Button>
             </span>
+            <span>total: {value.length}</span>
             {value.map((item, index) => (
-                <CustomInput
-                    key={index}
-                    type={type}
-                    value={item}
-                    onChange={(newItem) => handleItemChange(newItem, index)}
-                />
+                <Row justify="space-around" align="middle">
+                    <Col name>{name}[{index}]:</Col>
+                    <Col flex="auto">
+                        <CustomInput
+                            key={index}
+                            name={`[${index}]`}
+                            type={type}
+                            value={item}
+                            onChange={(newItem) => handleItemChange(newItem, index)}
+                        />
+                    </Col>
+                </Row>
             ))}
         </>
     );

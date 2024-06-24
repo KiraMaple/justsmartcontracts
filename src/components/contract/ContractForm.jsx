@@ -152,12 +152,12 @@ class ContractForm extends React.Component {
                             autoComplete="off"
                         />
                     </FormItem>
-                    <AbiQueryButton
+                    {/* <AbiQueryButton
                         getOptions={this.getEtherscanAbiOptions}
                         onResponse={this.handleEtherscanAbiResponse}
                     >
                         Check Etherscan
-                    </AbiQueryButton>
+                    </AbiQueryButton> */}
                 </FormItem>
                 <FormItem label="Or load build file">
                     <ContractInput

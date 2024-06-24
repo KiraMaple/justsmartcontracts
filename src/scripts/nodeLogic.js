@@ -51,12 +51,13 @@ export const getCustomNode = function(nodeList, nodeKey) {
 
 //adds a new custom node to the list and saves it in storage
 //returns list of nodes with new node 
-export const addCustomNode = function(nodeList, nodeName, endpoint, networkId) {
+export const addCustomNode = function(nodeList, nodeName, endpoint, networkId, explorer) {
     let node = {
         name: nodeName,
         key: getCustomNodeKey(nodeName), 
         endpoint: endpoint,
         id: networkId,
+        explorer: explorer,
     };
 
     nodeList.find(item => item.type === customNetworkType).nodes.push(node);
@@ -82,7 +83,7 @@ export const deleteCustomNode = function(nodeList, nodeKey) {
     return nodeList;
 }
 
-export const editCustomNode = function(nodeList, nodeKey, nodeName, endpoint, networkId) {
+export const editCustomNode = function(nodeList, nodeKey, nodeName, endpoint, networkId, explorer) {
     let customNetworks = nodeList.find(item => item.type === customNetworkType);
     let node = customNetworks.nodes.find(node => node.key === nodeKey);
     let index = customNetworks.nodes.indexOf(node);
@@ -92,6 +93,7 @@ export const editCustomNode = function(nodeList, nodeKey, nodeName, endpoint, ne
                                     key: getCustomNodeKey(nodeName), 
                                     endpoint: endpoint,
                                     id: networkId,
+                                    explorer: explorer,
     }
     storage.saveNetworks(customNetworks);
     return nodeList;

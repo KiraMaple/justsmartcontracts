@@ -6,8 +6,12 @@ import Blockies from 'react-blockies';
 import { shortenEthAddress } from '../../scripts/utils.js';
 import ContractForm from './ContractForm.jsx';
 import classnames from 'classnames';
+import * as storage from '../../scripts/storage';
 
 import styles from './ContractsList.scss';
+import DownloadButton from '../common/DownloadButton.jsx';
+import { showError } from '../common/errorMessage.js';
+import errorCodes from '../../scripts/errorCodes.js';
 
 /**
  * List of stored contracts located in the side panel
@@ -29,6 +33,7 @@ class ContractsList extends React.Component {
         this.closeConfirmationModal = this.closeConfirmationModal.bind(this);
         this.onConfirmedDelete = this.onConfirmedDelete.bind(this);
         this.startEdit = this.startEdit.bind(this);
+        this.recoverInputRef = React.createRef();
     }
 
     startAddContract() {
@@ -36,6 +41,34 @@ class ContractsList extends React.Component {
             contractToEdit: null,
             modalVisible: true,
         });
+    }
+
+    getBackupFileContent() {
+        return JSON.stringify({
+            [storage.nodesField]: storage.getCustomNodes(),
+            [storage.contractsField]: storage.getContracts(),
+        });
+    }
+
+    getBackupFileName() {
+        return `justsmartcontract-config-${Math.trunc(Date.now() / 1000)}.json`;
+    }
+
+    recoverConfig(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const content = event.target.result;
+          try {
+              const data = JSON.parse(content);
+              storage.saveNetworks(data[storage.nodesField]);
+              storage.saveContracts(data[storage.contractsField]);
+              location.reload();
+          } catch (e) {
+            showError(errorCodes.recoverConfig);
+          }
+        }
+        reader.readAsText(file);
     }
 
     closeModal() {
@@ -146,6 +179,21 @@ class ContractsList extends React.Component {
                 <div>
                     <Button type="primary" className={styles.addButton} onClick={this.startAddContract}>
                         Add contract
+                    </Button>
+                </div>
+                <div>
+                    <DownloadButton
+                        type="primary" className={styles.addButton} 
+                        getContent={this.getBackupFileContent}
+                        getFileName={this.getBackupFileName}
+                    >
+                        Backup config
+                    </DownloadButton>
+                </div>
+                <div>
+                    <input ref={this.recoverInputRef} type="file" onChange={this.recoverConfig} style={{ display: 'none' }} />
+                    <Button type="primary" className={styles.addButton} onClick={() => this.recoverInputRef.current.click()}>
+                        Recover config
                     </Button>
                 </div>
                 <Modal

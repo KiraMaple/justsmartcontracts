@@ -56,12 +56,12 @@ class NetworkSelect extends React.Component {
         e.stopPropagation();
     }
 
-    onAddNewNode(name, endpoint, id) {
+    onAddNewNode(name, endpoint, id, explorer) {
         if (nodeLogic.existCustomNode(this.props.nodeList, name)) {
             message.showNodeExist();
         } else {
             this.closeNodeFormModal();
-            this.props.onAddNewNode(name, endpoint, id);
+            this.props.onAddNewNode(name, endpoint, id, explorer);
         }
     }
 
@@ -76,12 +76,12 @@ class NetworkSelect extends React.Component {
         this.closeConfirmationModal();
     }
 
-    onEditNode(name, endpoint, id) {
+    onEditNode(name, endpoint, id, explorer) {
         if (!nodeLogic.checkEditPossible(this.props.nodeList, this.state.selectedNode, name)) {
             message.showNodeExist();
         } else {
             this.closeNodeFormModal();
-            this.props.onEditNode(this.state.selectedNode, name, endpoint, id);
+            this.props.onEditNode(this.state.selectedNode, name, endpoint, id, explorer);
         }
     }
 

@@ -4,8 +4,8 @@ import BoolInput from './BoolInput.jsx';
 import AddressInput from './AddressInput.jsx';
 import EtherInput from './EtherInput.jsx';
 import ArrayInput from './ArrayInput.jsx';
-import {Input} from 'antd';
-import {isArrayType, getArrayItemType} from '../../scripts/utils.js';
+import { Input } from 'antd';
+import { isArrayType, getArrayItemType } from '../../scripts/utils.js';
 
 /**
  * Input of specified type. One of BoolInput, AddressInput, EtherInput, Input.
@@ -30,7 +30,7 @@ class CustomInput extends React.Component {
     }
 
     render() {
-        const {type, onChange, ...restProps} = this.props;
+        const { type, onChange, ...restProps } = this.props;
 
         switch (type) {
             case 'bool':
@@ -40,6 +40,8 @@ class CustomInput extends React.Component {
             case 'eth':
             case 'ether':
                 return <EtherInput onChange={onChange} {...restProps} />
+            case 'bytes32':
+                return <AddressInput onChange={onChange} {...restProps} />
             default:
                 if (isArrayType(type)) {
                     return (<ArrayInput type={getArrayItemType(type)} onChange={onChange} {...restProps} />);
@@ -52,10 +54,12 @@ class CustomInput extends React.Component {
 
 
 CustomInput.propTypes = {
+    name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired
 };
 
 CustomInput.defaultProps = {
+    name: '',
     type: ''
 };
 
